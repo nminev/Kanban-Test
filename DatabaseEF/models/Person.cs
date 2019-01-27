@@ -6,17 +6,17 @@ using System.Text;
 
 namespace DatabaseEF
 {
-    public class Task
+    public class Person
     {
         [Key]
         public int ID { get; set; }
 
         public string Name { get; set; }
 
-        public Person PersonOnIt { get; set; }
+        public TodoItem TodoItem { get; set; }
 
-        [ForeignKey("PersonOnIt")]
-        public int PersonOnItID { get; set; }
+        [ForeignKey("TodoItem")]
+        public int TodoItemID { get; set; }
 
     }
 }

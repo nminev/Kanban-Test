@@ -14,7 +14,7 @@ namespace DatabaseEF.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.0-rtm-35687")
+                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -26,21 +26,23 @@ namespace DatabaseEF.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int>("TaskID");
+                    b.Property<int>("TodoItemID");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("TaskID")
+                    b.HasIndex("TodoItemID")
                         .IsUnique();
 
-                    b.ToTable("Person");
+                    b.ToTable("Persons");
                 });
 
-            modelBuilder.Entity("DatabaseEF.Task", b =>
+            modelBuilder.Entity("DatabaseEF.TodoItem", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsComplete");
 
                     b.Property<string>("Name");
 
@@ -48,15 +50,14 @@ namespace DatabaseEF.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Tasks");
+                    b.ToTable("TodoItems");
                 });
 
             modelBuilder.Entity("DatabaseEF.Person", b =>
                 {
-                    b.HasOne("DatabaseEF.Task", "Task")
+                    b.HasOne("DatabaseEF.TodoItem", "TodoItem")
                         .WithOne("PersonOnIt")
-                        .HasForeignKey("DatabaseEF.Person", "TaskID")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("DatabaseEF.Person", "TodoItemID");
                 });
 #pragma warning restore 612, 618
         }
