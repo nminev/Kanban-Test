@@ -136,9 +136,15 @@ function closeInput() {
 
 
 
-$("#load_test").on("click", function () {
-    let text = $("#addToQueue").val();
-    let paragraph = $(`<p>${text}<p>`);
+$("#addToQueue").on("click", function () {
+    let text = $("#TodoName").val();
+    let paragraph = $(`<p id="${text}">${text}<p>`);
     $("#first").append(paragraph)
 })
 
+$("#moveTask").on("click", function () {
+    let parent = $(this).parent();
+    let taskName = parent.find("#queueTitle").text();
+    parent.remove();
+    $("#listOfTasks").append(`<li>${taskName}</li>`);
+})

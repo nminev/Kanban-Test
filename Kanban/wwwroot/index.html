@@ -36,14 +36,24 @@
         <tbody id="todos"></tbody>
     </table>
 
-    <input type="text" id="addToQueue">
-    <button id="load_test"> add to Queue</button>
+    <input type="text" id="TodoName">
+    <button id="addToQueue"> add to Queue</button>
     <div id="content">
         <div id="first">
-            <h1>Queue</h1>
-        
+            <div>Queue</div>
+            <ol>
+                <li>
+                    <span id="queueTitle">Test Queue</span>
+                    <button id="moveTask"> move > </button>
+                </li>
+            </ol>
         </div>
-        <div id="second"><p>Task</p></div>
+        <div id="second">
+            <div>todo</div>
+            <ol id="listOfTasks">
+                <li>Test Todo</li>
+            </ol>
+        </div>
     </div>
 
 

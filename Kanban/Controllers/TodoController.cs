@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DatabaseEF;
+using DatabaseEF.Mapping;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using DatabaseEF.DTOs;
+using DatabaseEF.Enum;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,32 +17,33 @@ namespace Kanban.Controllers
     public class TodoController : Controller
     {
         private readonly KanbanContext _context;
-
-        public TodoController(KanbanContext context)
+        private TodoWrapper _todoWrapper;
+        public TodoController(KanbanContext context,TodoWrapper todoWrapper)
         {
-            _context = context;
-
-            if (_context.TodoItems.ToList().Count() == 0)
+            _todoWrapper = todoWrapper;
+            if (_todoWrapper.GetTodoItems().Count()==0)
             {
-                // Create a new TodoItem if collection is empty,
-                // which means you can't delete all TodoItems.
-                _context.TodoItems.Add(new TodoItem { Name = "Item1" });
-                _context.SaveChanges();
+                _todoWrapper.AddItem(new TodoDTO
+                {
+                    Name = "Item 1",
+                    IsComplete = false,
+                    State = State.InQueue
+                });
             }
         }
 
         // GET: api/Todo
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TodoItem>>> GetTodoItems()
+        public ActionResult<IEnumerable<TodoDTO>> GetTodoItems()
         {
-            return await _context.TodoItems.ToListAsync();
+            return _todoWrapper.GetTodoItems();
         }
 
         // GET: api/Todo/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TodoItem>> GetTodoItem(long id)
+        public async Task<ActionResult<TodoDTO>> GetTodoItem(int id)
         {
-            var todoItem = await _context.TodoItems.FindAsync(id);
+            var todoItem = await _todoWrapper.GetItemByIdAsync(id);
 
             if (todoItem == null)
             {
@@ -52,27 +55,24 @@ namespace Kanban.Controllers
 
         // POST: api/Todo
         [HttpPost]
-        public async Task<ActionResult<TodoItem>> PostTodoItem(TodoItem item)
+        public async Task<ActionResult<TodoDTO>> PostTodoItem(TodoDTO item)
         {
-            _context.TodoItems.Add(item);
-            await _context.SaveChangesAsync();
+            _todoWrapper.AddItem(item);
+            await _todoWrapper.CompleteAsync();
 
             return CreatedAtAction(nameof(GetTodoItem), new { id = item.ID }, item);
         }
 
         // PUT: api/Todo/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTodoItem(long id, TodoItem item)
+        public async Task<IActionResult> PutTodoItem(long id, TodoDTO item)
         {
             if (id != item.ID)
             {
                 return BadRequest();
             }
-
-            var a = _context.TodoItems.First(x=>x.ID==id);
-            a.Name = item.Name;
-            a.IsComplete = item.IsComplete;
-            await _context.SaveChangesAsync();
+            _todoWrapper.UpdateItem(item);
+            await _todoWrapper.CompleteAsync();
 
             return NoContent();
         }
