@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DatabaseEF.DTOs;
 using DatabaseEF.Enum;
+using System;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -77,11 +78,25 @@ namespace Kanban.Controllers
                 await _todoWrapper.CompleteAsync();
                 return NoContent();
             }
-            catch (System.Exception)
+            catch (Exception ex)
             {
                 return StatusCode(500);
             }
             
+        }
+
+        // GET: api/Todo/InQueue
+        [HttpGet("{state}")]
+        public  ActionResult<List<TodoDTO>> GetTodoItemInState(string requestedState)
+        {
+            State state;
+            if (!Enum.TryParse(requestedState, out state))
+            {
+                return BadRequest();
+            }
+            var todoItems = _todoWrapper.GetItemByState(state);
+
+            return Ok(todoItems);
         }
     }
 }

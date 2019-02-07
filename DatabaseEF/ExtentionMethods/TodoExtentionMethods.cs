@@ -30,7 +30,7 @@ namespace DatabaseEF.ExtentionMethods
             return Mapper.Map<Task<TodoDTO>>(item);
         }
 
-        public static List<TodoDTO> ToTodoDTOs(this List<TodoItem> items)
+        public static List<TodoDTO> ToTodoDTOs(this IEnumerable<TodoItem> items)
         {
             return Mapper.Map<List<TodoDTO>>(items);
         }
@@ -40,7 +40,7 @@ namespace DatabaseEF.ExtentionMethods
             return Mapper.Map<List<TodoDTO>>(items);
         }
 
-        public static List<TodoItem> ToTodoItems(this List<TodoDTO> dtos)
+        public static List<TodoItem> ToTodoItems(this IEnumerable<TodoDTO> dtos)
         {
             return Mapper.Map<List<TodoItem>>(dtos);
         }

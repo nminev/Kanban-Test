@@ -14,12 +14,12 @@ namespace DatabaseEF
 
         public string Name { get; set; }
 
-        public Person PersonOnIt { get; set; }
+        public virtual Person PersonOnIt { get; set; }
 
         public State State { get; set; }
 
         [ForeignKey("PersonOnIt")]
-        public int PersonOnItID { get; set; }
+        public int? PersonOnItID { get; set; }
 
     }
 }

@@ -3,6 +3,8 @@ using DatabaseEF.DTOs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DatabaseEF.ExtentionMethods;
+using DatabaseEF.Enum;
+using System.Linq;
 
 namespace DatabaseEF.Mapping
 {
@@ -41,6 +43,11 @@ namespace DatabaseEF.Mapping
         public int Complete()
         {
             return _context.SaveChanges();
+        }
+
+        public List<TodoDTO> GetItemByState(State state)
+        {
+            return _context.TodoItems.Where(x=>x.State==state).ToTodoDTOs();
         }
 
         private TodoItem FindContextItem(int id)

@@ -13,10 +13,10 @@ namespace DatabaseEF
 
         public string Name { get; set; }
 
-        public TodoItem TodoItem { get; set; }
+        public virtual TodoItem TodoItem { get; set; }
 
         [ForeignKey("TodoItem")]
-        public int TodoItemID { get; set; }
+        public int? TodoItemID { get; set; }
 
     }
 }
