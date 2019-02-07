@@ -13,9 +13,6 @@ namespace DatabaseEF.DTOs
         public string Name { get; set; }
 
         [DataMember]
-        public bool IsComplete { get; set; }
-
-        [DataMember]
         public State State { get; set; }
 
         [DataMember]

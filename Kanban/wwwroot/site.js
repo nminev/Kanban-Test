@@ -37,7 +37,6 @@ function getData() {
                             $("<input/>", {
                                 type: "checkbox",
                                 disabled: true,
-                                checked: item.isComplete
                             })
                         )
                     )
@@ -102,7 +101,6 @@ function editItem(id) {
         if (item.id === id) {
             $("#edit-name").val(item.name);
             $("#edit-id").val(item.id);
-            $("#edit-isComplete")[0].checked = item.isComplete;
         }
     });
     $("#spoiler").css({ display: "block" });
@@ -111,7 +109,6 @@ function editItem(id) {
 $(".my-form").on("submit", function () {
     const item = {
         name: $("#edit-name").val(),
-        isComplete: $("#edit-isComplete").is(":checked"),
         id: $("#edit-id").val()
     };
 

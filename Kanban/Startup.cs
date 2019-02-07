@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 using DatabaseEF;
+using DatabaseEF.Mapping;
+using Kanban.AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace Kanban
 {
@@ -27,6 +24,13 @@ namespace Kanban
         {
             services.AddDataProtection();
             services.AddMvc();
+            services.AddScoped<ITodoWrapper, TodoWrapper>();
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new AutoMapperProfile());
+            });
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
             services.AddDbContext<KanbanContext>(options => options.UseSqlServer(Configuration.GetConnectionString("KanbanDatabase")));
         }
 

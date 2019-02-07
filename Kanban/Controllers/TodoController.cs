@@ -16,20 +16,10 @@ namespace Kanban.Controllers
     [ApiController]
     public class TodoController : Controller
     {
-        private readonly KanbanContext _context;
-        private TodoWrapper _todoWrapper;
-        public TodoController(KanbanContext context,TodoWrapper todoWrapper)
+        private ITodoWrapper _todoWrapper;
+        public TodoController(KanbanContext context, ITodoWrapper todoWrapper)
         {
             _todoWrapper = todoWrapper;
-            if (_todoWrapper.GetTodoItems().Count()==0)
-            {
-                _todoWrapper.AddItem(new TodoDTO
-                {
-                    Name = "Item 1",
-                    IsComplete = false,
-                    State = State.InQueue
-                });
-            }
         }
 
         // GET: api/Todo
@@ -75,6 +65,23 @@ namespace Kanban.Controllers
             await _todoWrapper.CompleteAsync();
 
             return NoContent();
+        }
+
+        //DELETE: api/Todo/5 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> PutTodoItem(int id)
+        {
+            try
+            {
+                _todoWrapper.DeleteItem(id);
+                await _todoWrapper.CompleteAsync();
+                return NoContent();
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(500);
+            }
+            
         }
     }
 }

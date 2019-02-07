@@ -2,34 +2,31 @@
 using DatabaseEF.DTOs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
+using DatabaseEF.ExtentionMethods;
 
 namespace DatabaseEF.Mapping
 {
-    public class TodoWrapper
+    public class TodoWrapper: ITodoWrapper
     {
         KanbanContext _context;
-        public TodoWrapper()
+        public TodoWrapper(KanbanContext context)
         {
-            _context = new KanbanContext(null);
+            _context = context;
         }
 
 
         public TodoDTO GetItemById(int id)
         {
-            var todoItem = FindContextItem(id);
-            return Mapper.Map<TodoDTO>(todoItem);
+            return FindContextItem(id).ToTodoDTO();
         }
         public List<TodoDTO> GetTodoItems()
         {
-            var todoItems = _context.TodoItems;
-            return Mapper.Map<List<TodoDTO>>(todoItems);
+            return  _context.TodoItems.ToTodoDTOs();
         }
 
         public void UpdateItem(TodoDTO dtoItem)
         {
-            var todoItem = FindContextItem(dtoItem.ID);
-            Mapper.Map(dtoItem, todoItem);
+            FindContextItem(dtoItem.ID).UpdateTodoItem(dtoItem);
             Complete();
         }
         public void DeleteItem(int id)
@@ -39,7 +36,7 @@ namespace DatabaseEF.Mapping
         }
         public void AddItem(TodoDTO dtoItem)
         {
-            _context.Add(dtoItem);
+            _context.Add(dtoItem.ToTodoItem());
         }
         public int Complete()
         {
@@ -54,8 +51,7 @@ namespace DatabaseEF.Mapping
         #region async actions
         public Task<TodoDTO> GetItemByIdAsync(int id)
         {
-            var todoItem = FindContextItemAsync(id);
-            return Mapper.Map<Task<TodoDTO>>(todoItem);
+            return FindContextItemAsync(id).ToTodoDTO();
         }
         public Task<int> CompleteAsync()
         {

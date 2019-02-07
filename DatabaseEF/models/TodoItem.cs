@@ -14,8 +14,6 @@ namespace DatabaseEF
 
         public string Name { get; set; }
 
-        public bool IsComplete { get; set; }
-
         public Person PersonOnIt { get; set; }
 
         public State State { get; set; }
