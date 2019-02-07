@@ -86,7 +86,7 @@ namespace Kanban.Controllers
         }
 
         // GET: api/Todo/InQueue
-        [HttpGet("{state}")]
+        [HttpGet("{requestedState}")]
         public  ActionResult<List<TodoDTO>> GetTodoItemInState(string requestedState)
         {
             State state;

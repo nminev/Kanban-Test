@@ -64,6 +64,19 @@ function getData() {
     });
 }
 
+function getTodoByState(state) {
+    $.ajax({
+        type: "GET",
+        url: uri + '\\' + state,
+        cache: null,
+        success: function (data) {
+            $.each(data, function (key, item) {
+                console.log(item.name);
+            })
+        }
+    })
+}
+
 function addItem() {
     const item = {
         name: $("#add-name").val(),
@@ -133,11 +146,11 @@ function closeInput() {
 
 
 
-$("#addToQueue").on("click", function () {
-    let text = $("#TodoName").val();
-    let paragraph = $(`<p id="${text}">${text}<p>`);
-    $("#first").append(paragraph)
-})
+//$("#addToQueue").on("click", function () {
+//    let text = $("#TodoName").val();
+//    let paragraph = $(`<p id="${text}">${text}<p>`);
+//    $("#first").append(paragraph)
+//})
 
 $("#moveTask").on("click", function () {
     let parent = $(this).parent();
