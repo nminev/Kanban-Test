@@ -5,21 +5,9 @@ using System.Threading.Tasks;
 
 namespace DatabaseEF.Mapping
 {
-    public interface ITodoWrapper
+    public interface ITodoWrapper:IWrapper<TodoDTO>
     {
-        TodoDTO GetItemById(int id);
         List<TodoDTO> GetItemByState(State state);
-        List<TodoDTO> GetTodoItems();
 
-        void UpdateItem(TodoDTO dtoItem);
-        void DeleteItem(int id);
-        void AddItem(TodoDTO dtoItem);
-        int Complete();
-
-
-        #region async actions
-        Task<TodoDTO> GetItemByIdAsync(int id);
-        Task<int> CompleteAsync();
-        #endregion
     }
 }

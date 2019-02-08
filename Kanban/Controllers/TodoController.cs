@@ -27,7 +27,7 @@ namespace Kanban.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<TodoDTO>> GetTodoItems()
         {
-            return _todoWrapper.GetTodoItems();
+            return _todoWrapper.GetItems();
         }
 
         // GET: api/Todo/5
@@ -86,7 +86,8 @@ namespace Kanban.Controllers
         }
 
         // GET: api/Todo/InQueue
-        [HttpGet("{requestedState}")]
+        [HttpGet]
+        [Route("state/{requestedState}")]
         public  ActionResult<List<TodoDTO>> GetTodoItemInState(string requestedState)
         {
             State state;
