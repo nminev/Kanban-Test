@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Data.DTOs;
 using Data.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 // ReSharper disable InconsistentNaming
 

@@ -18,7 +18,6 @@ namespace DatabaseEF.Mapping
             _context = context;
         }
 
-
         public TodoDTO GetItemById(int id)
         {
             return FindContextItem(id).ToTodoDTO();
