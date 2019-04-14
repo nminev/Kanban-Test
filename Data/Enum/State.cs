@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DatabaseEF.Enum
+﻿namespace Data.Enum
 {
     public enum State
     {

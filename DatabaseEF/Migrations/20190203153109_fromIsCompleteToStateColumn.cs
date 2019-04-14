@@ -7,12 +7,12 @@ namespace DatabaseEF.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "IsComplete",
-                table: "TodoItems");
+                "IsComplete",
+                "TodoItems");
 
             migrationBuilder.AddColumn<int>(
-                name: "State",
-                table: "TodoItems",
+                "State",
+                "TodoItems",
                 nullable: false,
                 defaultValue: 0);
         }
@@ -20,12 +20,12 @@ namespace DatabaseEF.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "State",
-                table: "TodoItems");
+                "State",
+                "TodoItems");
 
             migrationBuilder.AddColumn<bool>(
-                name: "IsComplete",
-                table: "TodoItems",
+                "IsComplete",
+                "TodoItems",
                 nullable: false,
                 defaultValue: false);
         }

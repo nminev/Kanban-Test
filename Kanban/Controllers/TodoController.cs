@@ -1,13 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Data.DTOs;
+using Data.Enum;
 using DatabaseEF;
-using DatabaseEF.Mapping;
+using Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using DatabaseEF.DTOs;
-using DatabaseEF.Enum;
-using System;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,7 +15,8 @@ namespace Kanban.Controllers
     [ApiController]
     public class TodoController : Controller
     {
-        private ITodoWrapper _todoWrapper;
+        private readonly ITodoWrapper _todoWrapper;
+
         public TodoController(KanbanContext context, ITodoWrapper todoWrapper)
         {
             _todoWrapper = todoWrapper;
@@ -27,7 +26,7 @@ namespace Kanban.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<TodoDTO>> GetTodoItems()
         {
-            return _todoWrapper.GetItems();
+            return _todoWrapper.GetTodoItems();
         }
 
         // GET: api/Todo/5
@@ -36,10 +35,7 @@ namespace Kanban.Controllers
         {
             var todoItem = await _todoWrapper.GetItemByIdAsync(id);
 
-            if (todoItem == null)
-            {
-                return NotFound();
-            }
+            if (todoItem == null) return NotFound();
 
             return todoItem;
         }
@@ -51,17 +47,14 @@ namespace Kanban.Controllers
             _todoWrapper.AddItem(item);
             await _todoWrapper.CompleteAsync();
 
-            return CreatedAtAction(nameof(GetTodoItem), new { id = item.ID }, item);
+            return CreatedAtAction(nameof(GetTodoItem), new {id = item.ID}, item);
         }
 
         // PUT: api/Todo/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTodoItem(long id, TodoDTO item)
         {
-            if (id != item.ID)
-            {
-                return BadRequest();
-            }
+            if (id != item.ID) return BadRequest();
             _todoWrapper.UpdateItem(item);
             await _todoWrapper.CompleteAsync();
 
@@ -82,19 +75,15 @@ namespace Kanban.Controllers
             {
                 return StatusCode(500);
             }
-            
         }
 
         // GET: api/Todo/InQueue
         [HttpGet]
         [Route("state/{requestedState}")]
-        public  ActionResult<List<TodoDTO>> GetTodoItemInState(string requestedState)
+        public ActionResult<List<TodoDTO>> GetTodoItemInState(string requestedState)
         {
             State state;
-            if (!Enum.TryParse(requestedState, out state))
-            {
-                return BadRequest();
-            }
+            if (!Enum.TryParse(requestedState, out state)) return BadRequest();
             var todoItems = _todoWrapper.GetItemByState(state);
 
             return Ok(todoItems);

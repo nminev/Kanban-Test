@@ -3,9 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kanban", "Kanban\Kanban.csproj", "{989AA4B9-81C5-40EB-90B9-0D8BA56F673F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kanban", "Kanban\Kanban.csproj", "{989AA4B9-81C5-40EB-90B9-0D8BA56F673F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseEF", "DatabaseEF\DatabaseEF.csproj", "{5435EF79-AA3F-4C82-A527-A9302DFDBA38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseEF", "DatabaseEF\DatabaseEF.csproj", "{5435EF79-AA3F-4C82-A527-A9302DFDBA38}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interfaces", "Interfaces\Interfaces.csproj", "{3D4791A7-F9A3-4086-8D3D-7718C037801E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{C5DD3E59-4C7C-41AF-88C2-23E4B1E15C47}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utility", "Utility\Utility.csproj", "{88A0F958-20E5-4528-9955-A2CF39FB5C95}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{53BDDE3F-372E-4BD4-B403-29A9D4567C94}"
+	ProjectSection(SolutionItems) = preProject
+		.filenesting.json = .filenesting.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +32,18 @@ Global
 		{5435EF79-AA3F-4C82-A527-A9302DFDBA38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5435EF79-AA3F-4C82-A527-A9302DFDBA38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5435EF79-AA3F-4C82-A527-A9302DFDBA38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D4791A7-F9A3-4086-8D3D-7718C037801E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D4791A7-F9A3-4086-8D3D-7718C037801E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D4791A7-F9A3-4086-8D3D-7718C037801E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D4791A7-F9A3-4086-8D3D-7718C037801E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5DD3E59-4C7C-41AF-88C2-23E4B1E15C47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5DD3E59-4C7C-41AF-88C2-23E4B1E15C47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5DD3E59-4C7C-41AF-88C2-23E4B1E15C47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5DD3E59-4C7C-41AF-88C2-23E4B1E15C47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88A0F958-20E5-4528-9955-A2CF39FB5C95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88A0F958-20E5-4528-9955-A2CF39FB5C95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88A0F958-20E5-4528-9955-A2CF39FB5C95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88A0F958-20E5-4528-9955-A2CF39FB5C95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

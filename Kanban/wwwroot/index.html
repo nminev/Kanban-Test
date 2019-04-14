@@ -6,62 +6,60 @@
     <title>To-do CRUD</title>
 </head>
 <body>
-    <h1>To-do CRUD</h1>
-    <h3>Add</h3>
-    <form action="javascript:void(0);" method="POST" onsubmit="addItem()">
-        <input type="text" id="add-name" placeholder="New to-do">
-        <input type="submit" value="Add">
+<h1>To-do CRUD</h1>
+<h3>Add</h3>
+<form action="javascript:void(0);" method="POST" onsubmit="addItem()">
+    <input type="text" id="add-name" placeholder="New to-do">
+    <input type="submit" value="Add">
+</form>
+
+<div id="spoiler" style="display: none">
+    <h3>Edit</h3>
+    <form class="my-form">
+        <input type="hidden" id="edit-id">
+        <input type="text" id="edit-name">
+        <input type="submit" value="Save">
+        <a onclick="closeInput()" aria-label="Close">&#10006;</a>
     </form>
+</div>
 
-    <div id="spoiler" style="display:none">
-        <h3>Edit</h3>
-        <form class="my-form">
-            <input type="hidden" id="edit-id">
-            <input type="text" id="edit-name">
-            <input type="submit" value="Save">
-            <a onclick="closeInput()" aria-label="Close">&#10006;</a>
-        </form>
+<p id="counter"></p>
+
+<table>
+    <tr>
+        <th>Is Complete</th>
+        <th>Name</th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tbody id="todos"></tbody>
+</table>
+
+<input type="text" id="TodoName">
+<button id="addToQueue" onclick="getTodoByState('InQueue')"> add to Queue</button>
+<div id="content">
+    <div id="first">
+        <div>Queue</div>
+        <ol id="listQueue">
+            <li>
+                <span id="title">Test Queue</span>
+                <button id="moveTaskToTodo" onclick="moveTaskToTodo()"> move > </button>
+            </li>
+        </ol>
     </div>
+    <div id="second">
+        <div>Todo</div>
+        <ol id="listTasks">
 
-    <p id="counter"></p>
-
-    <table>
-        <tr>
-            <th>Is Complete</th>
-            <th>Name</th>
-            <th></th>
-            <th></th>
-        </tr>
-        <tbody id="todos"></tbody>
-    </table>
-
-    <input type="text" id="TodoName">
-    <button id="addToQueue" onclick="getTodoByState('InQueue')"> add to Queue</button>
-    <div id="content">
-        <div id="first">
-            <div>Queue</div>
-            <ol>
-                <li>
-                    <span id="queueTitle">Test Queue</span>
-                    <button id="moveTask"> move > </button>
-                </li>
-            </ol>
-        </div>
-        <div id="second">
-            <div>Todo</div>
-            <ol id="listOfTasks">
-                
-            </ol>
-        </div>
+        </ol>
     </div>
+</div>
 
 
-
-
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous"></script>
-    <script src="site.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script src="site.js"></script>
 </body>
 
 

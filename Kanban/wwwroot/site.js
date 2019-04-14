@@ -1,5 +1,6 @@
 ﻿const uri = "api/todo";
 let todos = null;
+
 function getCount(data) {
     const el = $("#counter");
     let name = "to-do";
@@ -13,7 +14,7 @@ function getCount(data) {
     }
 }
 
-$(document).ready(function () {
+$(document).ready(function() {
     closeInput();
     getData();
 });
@@ -23,41 +24,45 @@ function getData() {
         type: "GET",
         url: uri,
         cache: false,
-        success: function (data) {
+        success: function(data) {
             const tBody = $("#todos");
 
             $(tBody).empty();
 
             getCount(data.length);
 
-            $.each(data, function (key, item) {
-                const tr = $("<tr></tr>")
-                    .append(
-                        $("<td></td>").append(
-                            $("<input/>", {
-                                type: "checkbox",
-                                disabled: true,
-                            })
+            $.each(data,
+                function(key, item) {
+                    const tr = $("<tr></tr>")
+                        .append(
+                            $("<td></td>").append(
+                                $("<input/>",
+                                    {
+                                        type: "checkbox",
+                                        disabled: true,
+                                    })
+                            )
                         )
-                    )
-                    .append($("<td></td>").text(item.name))
-                    .append(
-                        $("<td></td>").append(
-                            $("<button>Edit</button>").on("click", function () {
-                                editItem(item.id);
-                            })
+                        .append($("<td></td>").text(item.name))
+                        .append(
+                            $("<td></td>").append(
+                                $("<button>Edit</button>").on("click",
+                                    function() {
+                                        editItem(item.id);
+                                    })
+                            )
                         )
-                    )
-                    .append(
-                        $("<td></td>").append(
-                            $("<button>Delete</button>").on("click", function () {
-                                deleteItem(item.id);
-                            })
-                        )
-                    );
+                        .append(
+                            $("<td></td>").append(
+                                $("<button>Delete</button>").on("click",
+                                    function() {
+                                        deleteItem(item.id);
+                                    })
+                            )
+                        );
 
-                tr.appendTo(tBody);
-            });
+                    tr.appendTo(tBody);
+                });
 
             todos = data;
         }
@@ -67,14 +72,15 @@ function getData() {
 function getTodoByState(state) {
     $.ajax({
         type: "GET",
-        url: uri + '\\' + state,
+        url: uri + "\\" + state,
         cache: null,
-        success: function (data) {
-            $.each(data, function (key, item) {
-                console.log(item.name);
-            })
+        success: function(data) {
+            $.each(data,
+                function(key, item) {
+                    console.log(item.name);
+                });
         }
-    })
+    });
 }
 
 function addItem() {
@@ -89,10 +95,10 @@ function addItem() {
         url: uri,
         contentType: "application/json",
         data: JSON.stringify(item),
-        error: function (jqXHR, textStatus, errorThrown) {
+        error: function(jqXHR, textStatus, errorThrown) {
             alert("Something went wrong!");
         },
-        success: function (result) {
+        success: function(result) {
             getData();
             $("#add-name").val("");
         }
@@ -103,47 +109,48 @@ function deleteItem(id) {
     $.ajax({
         url: uri + "/" + id,
         type: "DELETE",
-        success: function (result) {
+        success: function(result) {
             getData();
         }
     });
 }
 
 function editItem(id) {
-    $.each(todos, function (key, item) {
-        if (item.id === id) {
-            $("#edit-name").val(item.name);
-            $("#edit-id").val(item.id);
-        }
-    });
+    $.each(todos,
+        function(key, item) {
+            if (item.id === id) {
+                $("#edit-name").val(item.name);
+                $("#edit-id").val(item.id);
+            }
+        });
     $("#spoiler").css({ display: "block" });
 }
 
-$(".my-form").on("submit", function () {
-    const item = {
-        name: $("#edit-name").val(),
-        id: $("#edit-id").val()
-    };
+$(".my-form").on("submit",
+    function() {
+        const item = {
+            name: $("#edit-name").val(),
+            id: $("#edit-id").val()
+        };
 
-    $.ajax({
-        url: uri + "/" + $("#edit-id").val(),
-        type: "PUT",
-        accepts: "application/json",
-        contentType: "application/json",
-        data: JSON.stringify(item),
-        success: function (result) {
-            getData();
-        }
+        $.ajax({
+            url: uri + "/" + $("#edit-id").val(),
+            type: "PUT",
+            accepts: "application/json",
+            contentType: "application/json",
+            data: JSON.stringify(item),
+            success: function(result) {
+                getData();
+            }
+        });
+
+        closeInput();
+        return false;
     });
-
-    closeInput();
-    return false;
-});
 
 function closeInput() {
     $("#spoiler").css({ display: "none" });
 }
-
 
 
 //$("#addToQueue").on("click", function () {
@@ -152,9 +159,24 @@ function closeInput() {
 //    $("#first").append(paragraph)
 //})
 
-$("#moveTask").on("click", function () {
-    let parent = $(this).parent();
-    let taskName = parent.find("#queueTitle").text();
+
+//moves from Queue to todo
+function moveTaskToTodo() {
+    let parent = $("#moveTaskToTodo").parent();
+    let taskName = parent.find("#title").text();
     parent.remove();
-    $("#listOfTasks").append(`<li>${taskName}</li>`);
-})
+    $("#listTasks").append(`<li>
+<span id="title">${taskName}</span>
+<button id="moveTaskToQueue" onclick="moveTaskToQueue()"> < move </button>
+</li>`);
+}
+
+function moveTaskToQueue() {
+    let parent = $("#moveTaskToQueue").parent();
+    let taskName = parent.find("#title").text();
+    parent.remove();
+    $("#listQueue").append(`<li>
+<span id="title">${taskName}</span>
+<button id="moveTaskToTodo" onclick="moveTaskToTodo()"> move > </button>
+</li>`);
+}

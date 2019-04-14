@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DatabaseEF.DTOs;
-using DatabaseEF.Enum;
 
-namespace DatabaseEF.Mapping
+namespace Interfaces
 {
-   public interface IWrapper<TEntity> where TEntity : class
+    public interface IWrapper<TEntity> where TEntity : class
     {
         TEntity GetItemById(int id);
         List<TEntity> GetTodoItems();

@@ -7,25 +7,25 @@ namespace DatabaseEF.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropIndex(
-                name: "IX_Persons_TodoItemID",
-                table: "Persons");
+                "IX_Persons_TodoItemID",
+                "Persons");
 
             migrationBuilder.AlterColumn<int>(
-                name: "PersonOnItID",
-                table: "TodoItems",
+                "PersonOnItID",
+                "TodoItems",
                 nullable: true,
                 oldClrType: typeof(int));
 
             migrationBuilder.AlterColumn<int>(
-                name: "TodoItemID",
-                table: "Persons",
+                "TodoItemID",
+                "Persons",
                 nullable: true,
                 oldClrType: typeof(int));
 
             migrationBuilder.CreateIndex(
-                name: "IX_Persons_TodoItemID",
-                table: "Persons",
-                column: "TodoItemID",
+                "IX_Persons_TodoItemID",
+                "Persons",
+                "TodoItemID",
                 unique: true,
                 filter: "[TodoItemID] IS NOT NULL");
         }
@@ -33,27 +33,27 @@ namespace DatabaseEF.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropIndex(
-                name: "IX_Persons_TodoItemID",
-                table: "Persons");
+                "IX_Persons_TodoItemID",
+                "Persons");
 
             migrationBuilder.AlterColumn<int>(
-                name: "PersonOnItID",
-                table: "TodoItems",
+                "PersonOnItID",
+                "TodoItems",
                 nullable: false,
                 oldClrType: typeof(int),
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<int>(
-                name: "TodoItemID",
-                table: "Persons",
+                "TodoItemID",
+                "Persons",
                 nullable: false,
                 oldClrType: typeof(int),
                 oldNullable: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Persons_TodoItemID",
-                table: "Persons",
-                column: "TodoItemID",
+                "IX_Persons_TodoItemID",
+                "Persons",
+                "TodoItemID",
                 unique: true);
         }
     }

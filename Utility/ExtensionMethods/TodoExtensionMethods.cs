@@ -1,14 +1,15 @@
-﻿using AutoMapper;
-using DatabaseEF.DTOs;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using Data.DTOs;
+using Data.Models;
 
-namespace DatabaseEF.ExtentionMethods
+// ReSharper disable InconsistentNaming
+
+namespace Utility.ExtensionMethods
 {
-    public static class TodoExtentionMethods
+    public static class TodoExtensionMethods
     {
         public static TodoItem ToTodoItem(this TodoDTO dto)
         {
@@ -35,7 +36,7 @@ namespace DatabaseEF.ExtentionMethods
             return Mapper.Map<List<TodoDTO>>(items);
         }
 
-        public static List<TodoDTO> ToTodoDTOs(this DbSet<TodoItem> items)
+        public static List<TodoDTO> ToTodoDTOs(this IQueryable<TodoItem> items)
         {
             return Mapper.Map<List<TodoDTO>>(items);
         }
@@ -45,14 +46,16 @@ namespace DatabaseEF.ExtentionMethods
             return Mapper.Map<List<TodoItem>>(dtos);
         }
 
-        public static List<TodoItem> ToTodoItems(this DbSet<TodoDTO> dtos)
+        public static List<TodoItem> ToTodoItems(this IQueryable<TodoDTO> dtos)
         {
             return Mapper.Map<List<TodoItem>>(dtos);
         }
+
         public static TodoItem UpdateTodoItem(this TodoItem item, TodoDTO dto)
         {
             return Mapper.Map(dto, item);
         }
+
         public static TodoDTO UpdateTodoDTO(this TodoDTO dto, TodoItem item)
         {
             return Mapper.Map(item, dto);
